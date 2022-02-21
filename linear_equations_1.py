@@ -2,6 +2,7 @@ from random import randint, choice
 from sympy import solveset, Eq, Symbol
 from operator import add, truediv, mul, sub
 
+from linear_equations_2 import numbers_dot, do_decimal
 # 5*x=25 пример генерации
 
 
@@ -38,10 +39,18 @@ def solution():
     k1, answer = generation_k()
     equation_user = f'{k1}{user_char}x={answer}'
     x = Symbol('x')
-    return solveset(Eq(char(k1, x), answer), x), equation_user
+    return equation_user, solveset(Eq(char(k1, x), answer), x)
 
 
+def answer_ez():
+    eq, r = solution()
+    if not (numbers_dot(r)):
+        return eq, r
+    r = do_decimal(r)
+    return eq, r
 
+
+#
 
 
 

@@ -49,11 +49,15 @@ class App(QWidget):
         self.ui.answer.setText('')
 
     def output_line_ez(self):  # output eq
-        self.x, eq = l1.solution()
-        self.x = str(self.x)[1:-1]
+        eq, self.x = l1.answer_ez()
+        if '.' in str(self.x) and len(str(self.x)[str(self.x).index('.'):]) == 2 \
+                and str(self.x)[str(self.x).index('.') + 1] == '0':
+            self.x = int(self.x)
+        elif '{' in str(self.x):  # if answer with '/'
+            self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = self.x
-        self.disable_btn()
+        # self.disable_btn()
         print(self.answer)
         self.ui.answer.setText('')
 
