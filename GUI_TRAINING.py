@@ -22,7 +22,6 @@ class App(QWidget):
         self.counter_try = 0
         self.answer = 0
 
-
     def start(self):  # start the app
         self.ui = uic.loadUi('train.ui')
         self.ui.show()
@@ -80,7 +79,7 @@ class App(QWidget):
         elif '{' in str(self.x):  # if answer with '/'
             self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
-        self.answer = self.x
+        self.answer = str(self.x)
         self.disable_btn()
         self.ui.answer.setText('')
 
