@@ -1,5 +1,5 @@
-
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from random import randint
+from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5 import uic
 
 import sys
@@ -21,6 +21,7 @@ class App(QWidget):
         self.hide_dif()
         self.counter_try = 0
         self.answer = 0
+        self.flag = 9999
 
     def start(self):  # start the app
         self.ui = uic.loadUi('train.ui')
@@ -39,6 +40,9 @@ class App(QWidget):
         self.ui.avg_line.clicked.connect(lambda: self.output_lien_avg())
         self.ui.pushButton.clicked.connect(lambda: self.output_line_pro())
 
+    def help_btn(self):
+        self.ui.help.clicked.connect(lambda: self.help_event())
+
     def output_qua(self):  # output eq
         eq, self.d, self.x1, self.x2 = q.quadratic()
         self.ui.eq_label.setText(
@@ -47,6 +51,8 @@ class App(QWidget):
         self.disable_btn()
         print(self.answer)
         self.ui.answer.setText('')
+        self.flag = 0
+        print(self.flag)
 
     def output_line_ez(self):  # output eq
         self.x, eq = l1.solution()
@@ -56,6 +62,8 @@ class App(QWidget):
         self.disable_btn()
         print(self.answer)
         self.ui.answer.setText('')
+        self.flag = 1
+        print(self.flag)
 
     def output_lien_avg(self):  # method set the eq on label and treatmeant answer
         eq, self.x = l2.answer_avg()
@@ -63,12 +71,14 @@ class App(QWidget):
         if '.' in str(self.x) and len(str(self.x)[str(self.x).index('.'):]) == 2\
                 and str(self.x)[str(self.x).index('.') + 1] == '0':  # if answer int win dot 0
             self.x = int(self.x)
-        elif '{' in str(self.x):  # if asnwer with '/'
+        elif '{' in str(self.x):  # if answer with '/'
             self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = str(self.x)
         # self.disable_btn()
         self.ui.answer.setText('')
+        self.flag = 1
+        print(self.flag)
 
     def output_line_pro(self):
         eq, self.x = l3.answer_hard()
@@ -76,12 +86,14 @@ class App(QWidget):
         if '.' in str(self.x) and len(str(self.x)[str(self.x).index('.'):]) == 2\
                 and str(self.x)[str(self.x).index('.') + 1] == '0':
             self.x = int(self.x)
-        elif '{' in str(self.x):  # if asnwer with '/'
+        elif '{' in str(self.x):  # if answer with '/'
             self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = self.x
         self.disable_btn()
         self.ui.answer.setText('')
+        self.flag = 1
+        print(self.flag)
 
     def btn_check(self):  # check answer btn
         self.ui.cheker.clicked.connect(lambda: self.check_event())
@@ -102,6 +114,15 @@ class App(QWidget):
                 self.ui.counter.setText('0')
                 self.ui.result.setText('Correct')
                 self.enable_bnt()
+
+    def help_event(self):
+        print(True)
+        if int(self.counter_try) == 3:
+            self.enable_bnt()
+            if self.flag == 0:
+                self.ui.help_lbl.setText(f'{self.x1}, {self.x2}')
+            else:
+                self.ui.help_lbl.setText(f'{self.x}')
 
     def disable_btn(self):  # block btn
         self.ui.quadratic.setEnabled(False)
