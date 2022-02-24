@@ -15,7 +15,7 @@ class App(QWidget):
         super(App, self).__init__()
         self.start()
         self.choice()
-        self.ui_init()
+        self.ui_init_set()
         self.btn_check()
         self.lvl_choice()
         self.hide_dif()
@@ -26,9 +26,11 @@ class App(QWidget):
         self.ui = uic.loadUi('train.ui')
         self.ui.show()
 
-    def ui_init(self):  # answer space
+    def ui_init_set(self):  # answer space
         self.ui.answer.setPlaceholderText('Ответ')
         self.ui.counter.setText('0')
+        self.ui.setFixedSize(1000, 700)
+        self.ui.setWindowTitle('Doceo')
 
     def choice(self):  # choice btn's
         self.ui.quadratic.clicked.connect(lambda: self.output_qua())
