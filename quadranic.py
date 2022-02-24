@@ -7,7 +7,6 @@ def quadratic():
     a = 1
     b = (x1 + x2)*(-1)
     c = x1*x2
-
     if b > 0:
         b_user = f'+{b}'
     else:
@@ -16,27 +15,6 @@ def quadratic():
         c_user = f'+{c}'
     else:
         c_user = f'{c}'
-
     D = b**2 - 4*a*c
-    equastion_user = f'x²{b_user}x{c_user}=0'
-    return equastion_user, D, x1, x2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    equation_user = f'x²{b_user}x{c_user}=0'
+    return equation_user, D, x1, x2

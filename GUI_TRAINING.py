@@ -66,7 +66,7 @@ class App(QWidget):
         elif '{' in str(self.x):  # if answer with '/'
             self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
-        self.answer = self.x
+        self.answer = str(self.x)
         # self.disable_btn()
         print(self.answer)
         self.ui.answer.setText('')
@@ -94,7 +94,7 @@ class App(QWidget):
             self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = str(self.x)
-        self.disable_btn()
+        #self.disable_btn()
         self.ui.answer.setText('')
 
     def btn_check(self):  # check answer btn
@@ -104,6 +104,7 @@ class App(QWidget):
         value_ans = str(self.ui.answer.text())
         if self.answer != 0:
             if value_ans != self.answer:
+                #self.change_color()
                 self.disable_btn()
                 self.ui.corr.setText('Попробуй еще раз')
                 self.counter_try = int(self.counter_try)
@@ -111,6 +112,7 @@ class App(QWidget):
                 self.counter_try = str(self.counter_try)
                 self.ui.counter.setText(self.counter_try)
             else:
+                #self.com_color()
                 self.enable_bnt()
                 self.ui.corr.setText('Молодец, все правильно')
                 self.counter_try = 0
@@ -130,6 +132,20 @@ class App(QWidget):
         self.ui.ez_line.setEnabled(True)
         self.ui.avg_line.setEnabled(True)
         self.ui.pushButton.setEnabled(True)
+
+    # def change_color(self):
+    #     self.ui.quadratic.setstyleSheet('background: 887CAF')
+    #     self.ui.linear.setstyleSheet('background: 887CAF')
+    #     self.ui.ez_line.setstyleSheet('background: 887CAF')
+    #     self.ui.avg_line.setstyleSheet('background: 887CAF')
+    #     self.ui.pushButton.setstyleSheet('background: 887CAF')
+
+    # def com_color(self):
+    #     self.ui.quadratic.setstyleSheet('background: #16295')
+    #     self.ui.linear.setstyleSheet('background: #16295')
+    #     self.ui.ez_line.setstyleSheet('background: #16295')
+    #     self.ui.avg_line.setstyleSheet('background: #16295')
+    #     self.ui.pushButton.setstyleSheet('background: #16295')
 
     def hide_dif(self):  # hide lvl of linear eq
         self.ui.ez_line.hide()

@@ -44,13 +44,9 @@ def solution():
 
 def answer_ez():
     eq, r = solution()
-    if not (numbers_dot(r)):
-        return eq, r
+    while not (numbers_dot(r)):
+        eq, r = solution()
     r = do_decimal(r)
     return eq, r
-
-
-#
-
 
 
