@@ -18,7 +18,7 @@ def numbers_dot(n):  # проверка кол-ва знаков после то
         s = n[n.index('/') + 1:-1]
         o = int(z) / int(s)
         if '.' in str(o):
-            if len(str(o)[str(o).index('.'):]) > 5:
+            if len(str(o)[str(o).index('.'):]) > 4:
                 return False
             else:
                 return True

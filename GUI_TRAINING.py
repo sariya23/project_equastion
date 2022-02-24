@@ -1,4 +1,3 @@
-from random import randint
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5 import uic
 
@@ -15,6 +14,7 @@ class App(QWidget):
         super(App, self).__init__()
         self.start()
         self.choice()
+        self.info_win_btn()
         self.ui_init_set()
         self.btn_check()
         self.lvl_choice()
@@ -26,11 +26,19 @@ class App(QWidget):
         self.ui = uic.loadUi('train.ui')
         self.ui.show()
 
-    def ui_init_set(self):  # answer space
+    def ui_init_set(self):  # settings window
         self.ui.answer.setPlaceholderText('Ответ')
         self.ui.counter.setText('0')
         self.ui.setFixedSize(1000, 700)
         self.ui.setWindowTitle('Doceo')
+
+    def info_win_btn(self):
+        self.ui.pushButton_2.clicked.connect(lambda: self.show_info())
+
+    def show_info(self):
+        self.ui_info = uic.loadUi('instruction.ui')
+        self.ui_info.setFixedSize(800, 530)
+        self.ui_info.show()
 
     def choice(self):  # choice btn's
         self.ui.quadratic.clicked.connect(lambda: self.output_qua())
@@ -96,17 +104,17 @@ class App(QWidget):
         value_ans = str(self.ui.answer.text())
         if self.answer != 0:
             if value_ans != self.answer:
-                self.ui.result.setText('Uncorrect')
                 self.disable_btn()
+                self.ui.corr.setText('Попробуй еще раз')
                 self.counter_try = int(self.counter_try)
                 self.counter_try += 1
                 self.counter_try = str(self.counter_try)
                 self.ui.counter.setText(self.counter_try)
             else:
                 self.enable_bnt()
+                self.ui.corr.setText('Молодец, все правильно')
                 self.counter_try = 0
                 self.ui.counter.setText('0')
-                self.ui.result.setText('Correct')
                 self.enable_bnt()
 
     def disable_btn(self):  # block btn
