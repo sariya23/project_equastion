@@ -32,10 +32,10 @@ class App(QWidget):
         self.ui.setFixedSize(1000, 700)
         self.ui.setWindowTitle('Doceo')
 
-    def info_win_btn(self):
+    def info_win_btn(self):  # scd window btn
         self.ui.pushButton_2.clicked.connect(lambda: self.show_info())
 
-    def show_info(self):
+    def show_info(self):  # scd window with instruction
         self.ui_info = uic.loadUi('instruction.ui')
         self.ui_info.setFixedSize(800, 530)
         self.ui_info.show()
@@ -58,40 +58,31 @@ class App(QWidget):
         print(self.answer)
         self.ui.answer.setText('')
 
-    def output_line_ez(self):  # output eq
+    def output_line_ez(self):  # set eq in lbl and check answer ez
         eq, self.x = l1.answer_ez()
-        if '.' in str(self.x) and len(str(self.x)[str(self.x).index('.'):]) == 2 \
-                and str(self.x)[str(self.x).index('.') + 1] == '0':
+        if self.int_answer(self.x):
             self.x = int(self.x)
-        elif '{' in str(self.x):  # if answer with '/'
-            self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = str(self.x)
         # self.disable_btn()
         print(self.answer)
         self.ui.answer.setText('')
 
-    def output_lien_avg(self):  # method set the eq on label and treatmeant answer
+    def output_lien_avg(self):  # set eq in lbl and check answer avg
         eq, self.x = l2.answer_avg()
         print(self.x)
-        if '.' in str(self.x) and len(str(self.x)[str(self.x).index('.'):]) == 2\
-                and str(self.x)[str(self.x).index('.') + 1] == '0':  # if answer int win dot 0
+        if self.int_answer(self.x):
             self.x = int(self.x)
-        elif '{' in str(self.x):  # if answer with '/'
-            self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = str(self.x)
         # self.disable_btn()
         self.ui.answer.setText('')
 
-    def output_line_pro(self):
+    def output_line_pro(self):  # set eq in lbl and check answer pro
         eq, self.x = l3.answer_hard()
         print(self.x)
-        if '.' in str(self.x) and len(str(self.x)[str(self.x).index('.'):]) == 2\
-                and str(self.x)[str(self.x).index('.') + 1] == '0':
+        if self.int_answer(self.x):
             self.x = int(self.x)
-        elif '{' in str(self.x):  # if answer with '/'
-            self.x = str(self.x)[1:-1]
         self.ui.eq_label.setText(f'{eq}\nx={self.x}')
         self.answer = str(self.x)
         #self.disable_btn()
@@ -104,7 +95,7 @@ class App(QWidget):
         value_ans = str(self.ui.answer.text())
         if self.answer != 0:
             if value_ans != self.answer:
-                #self.change_color()
+                self.change_color()
                 self.disable_btn()
                 self.ui.corr.setText('Попробуй еще раз')
                 self.counter_try = int(self.counter_try)
@@ -112,12 +103,19 @@ class App(QWidget):
                 self.counter_try = str(self.counter_try)
                 self.ui.counter.setText(self.counter_try)
             else:
-                #self.com_color()
+                self.com_color()
                 self.enable_bnt()
                 self.ui.corr.setText('Молодец, все правильно')
                 self.counter_try = 0
                 self.ui.counter.setText('0')
                 self.enable_bnt()
+
+    @staticmethod
+    def int_answer(n):
+        if '.' in str(n) and len(str(n)[str(n).index('.'):]) == 2 \
+                and str(n)[str(n).index('.') + 1] == '0':
+            return True
+        return False
 
     def disable_btn(self):  # block btn
         self.ui.quadratic.setEnabled(False)
@@ -133,19 +131,19 @@ class App(QWidget):
         self.ui.avg_line.setEnabled(True)
         self.ui.pushButton.setEnabled(True)
 
-    # def change_color(self):
-    #     self.ui.quadratic.setstyleSheet('background: 887CAF')
-    #     self.ui.linear.setstyleSheet('background: 887CAF')
-    #     self.ui.ez_line.setstyleSheet('background: 887CAF')
-    #     self.ui.avg_line.setstyleSheet('background: 887CAF')
-    #     self.ui.pushButton.setstyleSheet('background: 887CAF')
+    def change_color(self):
+        self.ui.quadratic.setStyleSheet('background: 887CAF')
+        self.ui.linear.setStyleSheet('background: 887CAF')
+        self.ui.ez_line.setStyleSheet('background: 887CAF')
+        self.ui.avg_line.setStyleSheet('background: 887CAF')
+        self.ui.pushButton.setStyleSheet('background: 887CAF')
 
-    # def com_color(self):
-    #     self.ui.quadratic.setstyleSheet('background: #16295')
-    #     self.ui.linear.setstyleSheet('background: #16295')
-    #     self.ui.ez_line.setstyleSheet('background: #16295')
-    #     self.ui.avg_line.setstyleSheet('background: #16295')
-    #     self.ui.pushButton.setstyleSheet('background: #16295')
+    def com_color(self):
+        self.ui.quadratic.setStyleSheet('background: #16295')
+        self.ui.linear.setStyleSheet('background: #16295')
+        self.ui.ez_line.setStyleSheet('background: #16295')
+        self.ui.avg_line.setStyleSheet('background: #16295')
+        self.ui.pushButton.setStyleSheet('background: #16295')
 
     def hide_dif(self):  # hide lvl of linear eq
         self.ui.ez_line.hide()
